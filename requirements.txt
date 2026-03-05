@@ -1,2 +1,7 @@
-pytest:pytest==9.0.2
+pytest:
+pytest==9.0.2
 
+selenium:
+selenium==4.41.0
+
+from selenium import webdriver
