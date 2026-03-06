@@ -1,11 +1,8 @@
 from time import sleep
 from selenium import webdriver
-from selenium.webdriver.firefox.service import Service 
+from selenium.webdriver.firefox.service import Service
 from webdriver_manager.firefox import GeckoDriverManager
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.keys import Keys
 
 
 driver = webdriver.Firefox(service=Service(GeckoDriverManager().install()))
@@ -27,14 +24,9 @@ push_log = "button.radius"
 push_log = driver.find_element(By.CSS_SELECTOR, push_log)
 push_log.click()
 
-success_message = driver.find_element(By.CSS_SELECTOR,"div.flash.success")
+success_message = driver.find_element(By.CSS_SELECTOR, "div.flash.success")
 print(success_message.text)
 
 sleep(5)
 
 driver.quit()
-
-
-
-
-
