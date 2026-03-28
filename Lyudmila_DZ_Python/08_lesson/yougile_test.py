@@ -30,7 +30,12 @@ def test_put_project_id_positive():
     id = response_body["id"]  
     assert resp.status_code == 201
     body = {"title": "фнс"}
-    resp = requests.put(base_url + 'projects/{id}', json=body, headers=my_h)
+    resp = requests.put(f'{base_url}projects/{id}', json=body, headers=my_h)
+    assert resp.status_code == 200
+    # получаем проект по id
+    resp = requests.get(f'{base_url}projects/{id}', headers=my_h)
+    response_body = resp.json()
+    assert response_body["title"] == "фнс"
     
     
 def test_put_project_id_negative():
@@ -38,25 +43,48 @@ def test_put_project_id_negative():
     my_h = { 'Authorization': f"Bearer {token}", 'Content-Type':'application/json'}
     resp = requests.post(base_url + 'projects', json=body, headers=my_h)        
     response_body = resp.json()
-    id = response_body["id"]       
-    resp = requests.put(base_url + 'projects/{id}', json=body, headers=my_h) 
-    assert resp.status_code == 404
+    id = response_body["id"]  
+    assert resp.status_code == 201
+    body = {"title": ""}
+    resp = requests.put(f'{base_url}projects/{id}', json=body, headers=my_h)
+    assert resp.status_code == 400
+    # получаем проект по id
+    resp = requests.get(f'{base_url}projects/{id}', headers=my_h)
+    response_body = resp.json()
+    assert response_body["title"] == "ГосУслуги"
+    
  
        
-def test_get_project_id_negative():   
-    body = {}
-    my_h = {'Authorization': f"Bearer {token}", 'Content-Type':'application/json'}
-    resp = requests.get(base_url + 'projects/{id}', json=body, headers=my_h)        
+def test_get_project_id_negative(): 
+    '''запрос проекта без ключа''' 
+    # формируем заголовки и тело
+    body = {"title": "ГосУслуги"}
+    my_h = { 'Authorization': f"Bearer {token}", 'Content-Type':'application/json'}
+    # создаём проект
+    resp = requests.post(base_url + 'projects', json=body, headers=my_h) 
+    # запоминаем id       
     response_body = resp.json()
-    projects_id= [""]
-    assert resp.status_code == 404   
-
+    id = response_body["id"]  
+    assert resp.status_code == 201    
+    # получаем проект по id
+    my_h = {'Content-Type':'application/json'}
+    resp = requests.get(f'{base_url}projects/{id}', headers=my_h)
+    assert resp.status_code == 401
 
 def test_get_project_id_positive():   
-    body = {"id": " "}
+    '''запрос проекта без ключа''' 
+    # формируем заголовки и тело
+    body = {"title": "ГосУслуги"}
     my_h = { 'Authorization': f"Bearer {token}", 'Content-Type':'application/json'}
-    resp = requests.get(base_url + 'projects/{id}', json=body, headers=my_h)        
+    # создаём проект
+    resp = requests.post(base_url + 'projects', json=body, headers=my_h) 
+    # запоминаем id       
     response_body = resp.json()
-    projects_id= [""]
-    resp.status_code == 200
+    id = response_body["id"]  
+    assert resp.status_code == 201        
+    # получаем проект по id
+    resp = requests.get(f'{base_url}projects/{id}', headers=my_h)
+    response_body = resp.json()
+    assert resp.status_code == 200
+    assert response_body["title"] == "ГосУслуги"
     
