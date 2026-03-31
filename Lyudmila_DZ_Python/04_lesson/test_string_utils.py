@@ -81,3 +81,13 @@ def test_contains_positive(input_str, symbol, bool):
 ])
 def test_contains_negative(input_str, symbol, bool):
     assert string_utils.contains(input_str, symbol) == bool
+
+
+
+#pytest.mark.negative
+@pytest.mark.parametrize("input_str, symbol, bool", [
+    ("","a", False)
+])
+def test_contains_negative(input_str, symbol, bool):
+    assert string_utils.contains(input_str, symbol) == bool
+
