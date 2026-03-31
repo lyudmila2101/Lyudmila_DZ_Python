@@ -1,19 +1,20 @@
 class Calculator:
 
-    def sam(a, b):
-        result = a+b
-        return result
+    def sum(self, a, b):       # def sum(self, a, b):
+        return a + b
+        
+        
     
     def sub(a, b):
-        куыгде = a-b
+        result = a-b
         return result
     
     def mul(a, b):
-        result a*b
+        result =  a*b
 
     def div(self, a, b):
         if (b == 0):
-            raise ArithmeticError("На ноль делмить нельзя")
+            raise ArithmeticError("На ноль делить нельзя")
         
         return a/b
     
