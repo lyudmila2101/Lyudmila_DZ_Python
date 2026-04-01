@@ -1,0 +1,17 @@
+# Установка зависимостей
+pip install allure-pytest selenium webdriver-manager
+
+# Запуск тестов
+pytest --alluredir=allure-results
+
+# Просмотр отчета
+allure serve allure-results
+
+# Функции можно документировать — описывать их логику. Используйте для описания три пары двойных кавычек:""" """
+
+# Allure умеет генерировать отчет в файл — его можно выгружать. Для этого используется команда:
+# allure generate название папки (allure-result)
+# Результат выгрузится в папку allure-report.
+
+# Результаты отчета можно запускать с помощью команды:
+# allure open allure-report
